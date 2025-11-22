@@ -1,0 +1,57 @@
+#include "corne_common_keymap.dtsi"
+
+/ {
+  keymap {
+    compatible = "zmk,keymap";
+
+    qwerty_layer {
+      display-name = "QWERTY";
+      bindings = <
+   __________QWERTY_L1__________    __________QWERTY_R1__________
+   __________QWERTY_L2__________    __________QWERTY_R2__________
+   __________QWERTY_L3__________    __________QWERTY_R3__________
+                _____QWERTY_TH_L_____ _____QWERTY_TH_R_____
+      >;
+    };
+
+    colemak_layer {
+      display-name = "COLEMAK";
+      bindings = <
+   __________COLEMAK_L1__________    __________COLEMAK_R1__________
+   __________COLEMAK_L2__________    __________COLEMAK_R2__________
+   __________COLEMAK_L3__________    __________COLEMAK_R3__________
+                _____COLEMAK_TH_L_____ _____COLEMAK_TH_R_____
+      >;
+    };
+
+    numnav_layer {
+      display-name = "NUM-NAV";
+      bindings = <
+   __________NUMNAV_L1__________    __________NUMNAV_R1__________
+   __________NUMNAV_L2__________    __________NUMNAV_R2__________
+   __________NUMNAV_L3__________    __________NUMNAV_R3__________
+                _____NUMNAV_TH_L_____ _____NUMNAV_TH_R_____
+      >;
+    };
+
+    symbols_layer {
+      display-name = "SYMBOLS";
+      bindings = <
+   __________SYMBOLS_L1__________    __________SYMBOLS_R1__________
+   __________SYMBOLS_L2__________    __________SYMBOLS_R2__________
+   __________SYMBOLS_L3__________    __________SYMBOLS_R3__________
+                _____SYMBOLS_TH_L_____ _____SYMBOLS_TH_R_____
+      >;
+    };
+
+    functions_layer {
+      display-name = "FUNCTIONS";
+      bindings = <
+   __________FUNCTIONS_L1__________    __________FUNCTIONS_R1__________
+   __________FUNCTIONS_L2__________    __________FUNCTIONS_R2__________
+   __________FUNCTIONS_L3__________    __________FUNCTIONS_R3__________
+                _____FUNCTIONS_TH_L_____ _____FUNCTIONS_TH_R_____
+      >;
+    };
+  };  
+};
