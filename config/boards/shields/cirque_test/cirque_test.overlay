@@ -1,0 +1,94 @@
+/*
+ * Copyright (c) 2020 The ZMK Contributors
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+#include <dt-bindings/zmk/matrix_transform.h>
+
+/ {
+    chosen {
+        zmk,kscan = &kscan0;
+        zmk,matrix_transform = &default_transform;
+    };
+
+    default_transform: keymap_transform_0 {
+        compatible = "zmk,matrix-transform";
+        columns = <1>;
+        rows = <1>;
+        map = <RC(0,0)>;
+    };
+
+    kscan0: kscan {
+        compatible = "zmk,kscan-gpio-matrix";
+        label = "KSCAN";
+        diode-direction = "col2row";
+        
+        row-gpios = <&pro_micro 4 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;
+        col-gpios = <&pro_micro 21 GPIO_ACTIVE_HIGH>;
+    };
+
+    /* Virtual input device for the trackpad */
+    glidepoint_input: glidepoint_input {
+        compatible = "zmk,virtual-input";
+    };
+};
+
+&pinctrl {
+    i2c1_default: i2c1_default {
+        group1 {
+            psels = <NRF_PSEL(TWIM_SDA, 0, 8)>,
+                    <NRF_PSEL(TWIM_SCL, 0, 17)>;
+        };
+    };
+
+    i2c1_sleep: i2c1_sleep {
+        group1 {
+            psels = <NRF_PSEL(TWIM_SDA, 0, 8)>,
+                    <NRF_PSEL(TWIM_SCL, 0, 17)>;
+            low-power-enable;
+        };
+    };
+};
+
+&i2c1 {
+    status = "okay";
+    compatible = "nordic,nrf-twim";
+    pinctrl-0 = <&i2c1_default>;
+    pinctrl-1 = <&i2c1_sleep>;
+    pinctrl-names = "default", "sleep";
+
+    glidepoint0: glidepoint@2a {
+        compatible = "cirque,pinnacle";
+        reg = <0x2a>;
+        status = "okay";
+        dr-gpios = <&gpio0 6 (GPIO_ACTIVE_HIGH)>;
+        
+        sensitivity = "1x";
+        sleep;
+        // no-taps;
+    };
+};
+
+/ {
+    /* Input listener for trackpad events */
+    trackpad_listener {
+        compatible = "zmk,input-behavior-listener";
+        device = <&glidepoint0>;
+        
+        /* Input processors */
+        input-processors = <&zip_xy_transform>;
+    };
+
+    /* XY transform to handle coordinate processing */
+    zip_xy_transform: zip_xy_transform {
+        compatible = "zmk,input-processor-transform";
+        type = <INPUT_EV_REL>;
+        x-codes = <INPUT_REL_X>;
+        y-codes = <INPUT_REL_Y>;
+        
+        y-invert;
+        scale-multiplier = <2>;
+        scale-divisor = <1>;
+    };
+};

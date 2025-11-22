@@ -1,0 +1,10 @@
+file_format: "1"
+id: cirque_test
+name: Cirque Test
+type: shield
+url: https://github.com/zmkfirmware/zmk
+requires: [pro_micro]
+features:
+  - keys
+  - mouse
+exposes: [i2c_gpio]

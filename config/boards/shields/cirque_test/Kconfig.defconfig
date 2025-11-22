@@ -1,0 +1,6 @@
+if SHIELD_CIRQUE_TEST
+
+config ZMK_KEYBOARD_NAME
+    default "Cirque Test"
+
+endif
