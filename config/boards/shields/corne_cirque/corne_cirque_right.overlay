@@ -21,7 +21,7 @@
         ;
 };
 
-&i2c0 {
+&i2c1 {
     status = "okay";
     glidepoint0: glidepoint@2a {
         status = "okay";
